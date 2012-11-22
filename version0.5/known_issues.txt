@@ -1,0 +1,8 @@
+Known Issues
+----------------
+
+- Images need to be saved in files according to day/month/year
+- Threshold level not configured properly
+- Optimisation (gcc -O)
+- Memory leaks
+
