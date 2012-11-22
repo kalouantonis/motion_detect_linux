@@ -3,3 +3,4 @@ Want to add to program
 
 - GUI (with gtk)
 - Conf file saving
+- Signal handeling for SIGTERM and SIGINT to clear allocated memory using release()
