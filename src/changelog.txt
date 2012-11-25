@@ -1,0 +1,11 @@
+Changelog 13.11.12
+-------------------
+
+- Fixed high compare rate at first run.
+- Fixed memory issues (some) by releasing the images and matrices
+- Added sleep function, so that the user can exit the room (in safety)
+- Save seperate images according to capture. (using date and time)
+- Delay between shots (500 ms)
+- Split program in to seperate source files
+- Added static libraries
+- Custom save paths
