@@ -1,5 +1,5 @@
 /*
- * main.c
+ * main2.c
  * 
  * Copyright 2012 Antonis Kalou <slacker@ubuntu-R580-R590>
  * 
@@ -28,43 +28,28 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc_c.h>
 #include <unistd.h>
+#include <time.h>
 #include "functions.h"
 #define INDEX -1
 
 int main(int argc, char **argv)
 {
-	char save_location[255];
-	FILE* f = fopen("save_location.conf", "w"); //dont forget to fclose(f) at some point
-	if(check_conf_file(f) == 1)
-	{
-		/* Replace save location with what is in the conf file*/
-		int i;
-		for(i = 0; i != EOF; i++)
-		{
-			/* Store to save_location from conf_file*/
-		}
-		create_file(save_location);
-	}
-	else 
-	{
-		puts("Where would you like to store images?");
-		scanf("%s", save_location);
-		create_file(save_location);
-		create_conf_file(save_location, f);
-	}
-	
-	puts("\nWaiting 30 seconds for you to leave the room...\n");
-	//sleep(30); /* 30 second delay so i can leave the room. */
-	
+	sleep(30); /* 30 second delay so i can leave the room. */
 	CvCapture *webcam = cvCaptureFromCAM(INDEX);
 	
 	short first_run = 0;
 	short capture_first = 0;
 	
-	//check_clear(argv[1], save_location);	
+	char clear;
+	
+	if((clear = getopt(argc, argv, "c")))
+		system("rm /home/slacker/Dropbox/intruder/*"); //clears folder
 	
 	if(!webcam)
-		error("Could not capture from webcam");
+	{
+		fprintf(stderr, "ERROR: Could not connect to webcam\n");
+		return 1;
+	}
 	
 	CvMat *curr_img= 0 , *prev_img = 0;
 	cvNamedWindow("Detect", 1);
@@ -74,7 +59,10 @@ int main(int argc, char **argv)
 		IplImage *frame = cvQueryFrame(webcam);
 		
 		if(!frame)
-			error("Could not capture from frame");
+		{
+			fprintf(stderr, "ERROR: Could not capture frame\n");
+			return 2;
+		}
 		
 		if(!curr_img)
 		{
@@ -93,7 +81,7 @@ int main(int argc, char **argv)
 			{
 				printf("Intruder detected, saving image!\tnorm_L2 = %f\n", norm_L2);
 				cvShowImage("Detect", curr_img);
-				save_image(frame, save_location);
+				save_image(frame);
 				/*if(i > 5)
 				{
 					//save_video();
