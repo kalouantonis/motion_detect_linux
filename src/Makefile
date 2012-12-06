@@ -1,6 +1,15 @@
-main.o: main.c
-	gcc -Wall -c main.c -o main.o -I. -lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_video
-functions.o: functions.c 
-	gcc -Wall -c functions.c -o functions.o -I. -lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_video
-main: main.o functions.o
-	gcc -Wall functions.o main.o -o main -I. -lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_video
+INCLUDES := $(shell pkg-config --cflags opencv) 
+LIBS := $(shell pkg-config --libs opencv) 
+CFLAGS += $(CLI_INCLUDES) $(SRV_INCLUDES)
+
+OBJ := \
+       functions.o	\
+       main.o
+
+all: main 
+
+main: $(OBJ)
+	$(CC) -o $@ $(OBJ) $(LIBS)
+
+clean:
+	$(RM) $(CLI_OBJ) $(SRV_OBJ) $(MTN_OBJ) main
