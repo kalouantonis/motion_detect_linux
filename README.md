@@ -8,4 +8,11 @@ Images are saved in a custom location according to time and date.
 
 Program developed by Antonis Kalou under the GPL licence
 
-Note: Version 0.5 is the stable release.
+######################################################
+#Install Instructions#
+
+"cd your/save/location/src"
+"make"
+
+To run -> "./main"
+To remove -> "make clean"
