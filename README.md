@@ -11,7 +11,7 @@ Program developed by Antonis Kalou under the GPL licence
 ######################################################
 #Install Instructions#
 
-"cd your/save/location/src"
+"cd your/save/location/"
 "make"
 
 To run -> "./main"
